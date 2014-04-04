@@ -1,0 +1,4 @@
+name: Docs
+markdown: redcarpet
+pygments: true
+baseurl: /raddish
