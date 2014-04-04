@@ -21,14 +21,14 @@
 		        </div>
 
 		        <ul class="nav navbar-nav">
-			        <li {% if page.url == '/index.html' %} class="active" {% endif %}><a href="/">Home</a></li>
-			        <li {% if page.url == '/getting-started.html' %} class="active" {% endif %}><a href="/getting-started.html">Getting Started</a></li>
-			        <li {% if page.url == '/how-to-use.html' %} class="active" {% endif %}><a href="/how-to-use.html">How to use</a></li>
-			        <li {% if page.url == '/examples/' %} class="active" {% endif %}><a href="/examples/">Examples</a></li>
+			        <li {% if page.url == '/index.html' %} class="active" {% endif %}><a href="{{ site.baseurl }}/">Home</a></li>
+			        <li {% if page.url == '/getting-started.html' %} class="active" {% endif %}><a href="{{ site.baseurl }}/getting-started.html">Getting Started</a></li>
+			        <li {% if page.url == '/how-to-use.html' %} class="active" {% endif %}><a href="{{ site.baseurl }}/how-to-use.html">How to use</a></li>
+			        <li {% if page.url == '/examples/' %} class="active" {% endif %}><a href="{{ site.baseurl }}/examples/">Examples</a></li>
 		        </ul>
 
 		        <ul class="nav navbar-nav navbar-right">
-			        <li {% if page.url == '/blog/' %} class="active" {% endif %}><a href="/blog/">Blog</a></li>
+			        <li {% if page.url == '/blog/' %} class="active" {% endif %}><a href="{{ site.baseurl }}/blog/">Blog</a></li>
 		        </ul>
 	        </div>
         </div>
