@@ -1,0 +1,12 @@
+body {
+	margin-bottom: 65px;
+}
+
+footer {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	background: #FFFFFF;
+	border-top: 1px solid #eee;
+	padding: 15px 0px;
+}
