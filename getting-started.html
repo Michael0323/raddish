@@ -27,6 +27,31 @@ layout: default
 
 <div class="row">
 	<div class="col-md-12">
+		<h2>Urls and the Public folder</h2>
+
+		<p>
+			By default the system will check the requested application in the default component for a dispatcher <br />
+			This dispatcher has to be present or else there will be a 404 error.
+		</p>
+		<p>
+			How do requests look like? <br/>
+			http://example.com/&lt;application&gt;/&lt;component&gt;/&lt;view&gt; <br/>
+			The view is optional when no view is given it will look for the plural of the component eg: component name = menu view name = menus.
+		</p>
+		<p>
+			You can also send get variables as states into the system. The states given to the system will also be given back in the response.
+			<br/> Also the will make a difference between singular and plural views, plurals will return a list and singulars will return or an empty object if it doen't exists or a filled row object.
+		</p>
+		<p>
+			So what is the deal with the public folder? <br/>
+			This is the folder where all the public files are located. You can access them as expected eg: http://example.com/css/foo.css
+			<br/> will try to get file from the public folder, if it can't be found the request will be handled as a framework request.
+		</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
 		<h2>
 			Setting up the system
 		</h2>
@@ -95,19 +120,33 @@ console.log('Server running on port: 1337');</pre>
 
 <div class="row">
 	<div class="col-md-12">
-		<h2>Setup your first Application/ Component</h2>
+		<h2>
+			Your first application and component
+		</h2>
 
-		<p>
-			By default the system will check the requested application in the default component for a dispatcher <br />
-			This dispatcher has to be present or else there will be a 404 error.
-		</p>
-		<p>
-			How do requests look like? <br/>
-			http://example.com/&lt;application&gt;/&lt;component&gt;/&lt;view&gt; <br/>
-			The view is optional when no view is given it will look for the plural of the component eg: component name = menu view name = menus.
-		</p>
-		<p>
+		Now we will try to create a simple blogging component called blog. <br/>
+		We won't be handling the frontend because this can be done the way you like it. <br/>
+		But first we have to create an application. The application will be called web. So in our applications folder we create the folder named web.
+		<br/> And in this folder we create the folder components. Unfortunately we still rely on a default dispatcher so we have to create this one first.
+		<br/> In the components folder we create the folder default, this will hold the component wide overrides and can be used for almost everything.
+		<br/> Here we will create the file called dispatcher.js with the following code in there. This is the minimum needed for a dispatcher.
+		<pre>var Dispatcher  = require('raddish').Dispatcher;
+var util        = require('util');
 
-		</p>
+function DefaultDispatcher() {
+    DefaultDispatcher.super_.apply(this, arguments);
+}
+
+util.inherits(DefaultDispatcher, Dispatcher);
+
+module.exports = DefaultDispatcher;</pre>
+
+		After this we are almost done, we still have to add the table the tables will hold a naming convention in this case blog_blogs
+		<br/> In this table we have the following columns id, title, content the id column will be a primary key. <br/>
+		After this if you send a POST request to http://example.com/web/blog/blog it will add a table entry <br/>
+		If you send a POST request to http://example.com/web/blog/blog?id=1 it will update the table row with ID 1 with the posted data.
+		<br/><br/>
+
+		This holds the base of a component, when you don't need any extra overrides the default system will take care of everything.
 	</div>
 </div>
