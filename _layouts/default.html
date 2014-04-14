@@ -9,6 +9,7 @@
         <!-- Custom CSS -->
         <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/bootstrap.css">
         <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/custom.css">
+	    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/highlight.css">
 
 	    <!--Custom JS -->
 	    <script src="{{ site.baseurl }}/assets/js/jquery-2.1.0.js"></script>
@@ -51,7 +52,20 @@
 		        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			        <ul class="nav navbar-nav">
 				        <li {% if page.url == '/index.html' %} class="active" {% endif %}><a href="{{ site.baseurl }}/">Home</a></li>
-				        <li {% if page.url == '/getting-started.html' %} class="active" {% endif %}><a href="{{ site.baseurl }}/getting-started.html">Getting Started</a></li>
+				        <li {% if page.url contains 'tutorial' %} class="active dropdown" {% else %} class="dropdown" {% endif %}>
+				            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					            Tutorial
+					            <span class="caret"></span>
+				            </a>
+
+				            <ul class="dropdown-menu">
+					            {% for post in site.categories.tutorial reversed %}
+					                <li>
+					                    <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+					                </li>
+					            {% endfor %}
+				            </ul>
+				        </li>
 			        </ul>
 
 			        <ul class="nav navbar-nav navbar-right">

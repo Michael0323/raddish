@@ -78,7 +78,8 @@ console.log('Server running on port: 1337');{% endhighlight %}
 		<p>
 			Next is the config.js where all the configuration options are set. Below I will give an example to use.
 
-			<pre>module.exports = {
+			{% highlight javascript linenos %}
+module.exports = {
 	"db": {
 		"default": {
 			"host": "localhost",
@@ -90,7 +91,7 @@ console.log('Server running on port: 1337');{% endhighlight %}
 	},
 	"layout": "json",
 	"gzip": false
-}</pre>
+}{% endhighlight %}
 		</p>
 		<p>
 			We will explain the values

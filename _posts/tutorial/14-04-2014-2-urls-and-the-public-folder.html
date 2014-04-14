@@ -1,0 +1,38 @@
+---
+title: 2. Urls and the Public folder
+permalink: /tutorial/urls-and-the-public-folder.html
+category: tutorial
+layout: default
+---
+
+<div class="page-header">
+	<h1>
+		Urls
+		<small>
+			and the Public folder
+		</small>
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<p>
+			By default the system will check the requested application in the default component for a dispatcher <br />
+			This dispatcher has to be present or else there will be a 404 error.
+		</p>
+		<p>
+			How do requests look like? <br/>
+			http://example.com/&lt;application&gt;/&lt;component&gt;/&lt;view&gt; <br/>
+			The view is optional when no view is given it will look for the plural of the component eg: component name = menu view name = menus.
+		</p>
+		<p>
+			You can also send get variables as states into the system. The states given to the system will also be given back in the response.
+			<br/> Also the will make a difference between singular and plural views, plurals will return a list and singulars will return or an empty object if it doen't exists or a filled row object.
+		</p>
+		<p>
+			So what is the deal with the public folder? <br/>
+			This is the folder where all the public files are located. You can access them as expected eg: http://example.com/css/foo.css
+			<br/> will try to get file from the public folder, if it can't be found the request will be handled as a framework request.
+		</p>
+	</div>
+</div>
