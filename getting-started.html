@@ -62,13 +62,14 @@ layout: default
 		</p>
 		<p>
 			The app.js is very simple below is an example to use in a project.
-			<pre>var Router  = require('raddish').Router;
+			{% highlight javascript linenos %}
+var Router  = require('raddish').Router;
 var http    = require('http');
 
 http.createServer(function(req, res) {
 	new Router().route(req, res);
 }).listen(1337);
-console.log('Server running on port: 1337');</pre>
+console.log('Server running on port: 1337');{% endhighlight %}
 		</p>
 		<p>
 			This will create a http server which will listen to requests, when you request a file or data from the application the router will handle the request. <br />
