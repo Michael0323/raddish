@@ -34,10 +34,45 @@ layout: default
 		</p>
 
 		<h4>Application Scope</h4>
-
 		<p>
 			The overrides for the complete application will go in the default component, unfortunately the overrides done here won't work when you have a component specific override.
-			<br/> 
+			<br/> In the component scope We will split everything apart.
+		</p>
+
+		<h4>
+			Component Scope
+		</h4>
+		<p>
+			These are overrides for specific components and only for this single component. <br/>
+			We will go through everything from simple dispatcher and views to behaviours (DCI) <br/>
+		</p>
+
+		<h5>Dispatcher</h5>
+		<p>
+			The dispatcher is the handler of request and response and thus will handle the output accordingly. <br/>
+			Also when there is no view given in the request the dispatcher will assume a view which is by default the plural of the component name
+		</p>
+		<p>
+			When you want this can be overridden by adding the config variable controller in the initialize function of the dispatcher, below an example.
+	{% highlight javascript linenos %}
+	var Dispatcher  = require('raddish').Dispatcher;
+	var util        = require('util');
+
+	function ExampleDispatcher() {
+		ExampleDispatcher.super_.call(this);
+	};
+
+	util.inherits(ExampleDispatcher, Dispatcher);
+
+	ExampleDispatcher.prototype.initialize = function(config) {
+		config.controller = 'foo';
+
+		return ExampleDispatcher.super_.prototype.initialize.call(this, config);
+	};
+
+	module.exports = ExampleDispatcher;{% endhighlight %}
+
+			In this example we have set the default controller when there is no view found.
 		</p>
 	</div>
 </div>
