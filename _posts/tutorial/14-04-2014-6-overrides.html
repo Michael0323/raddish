@@ -81,5 +81,140 @@ layout: default
 			The controller reacts on what the user does, in this case the request methods. (GET, POST and DELETE), <br/>
 			When required the controller can also handle custom methods, but this ofcourse is discouraged.
 		</p>
+		<p>
+			The functions used for request methods are by default:
+		</p>
+		<ul>
+			<li>_actionGet</li>
+			<li>_actionPost</li>
+			<li>_actionDelete</li>
+		</ul>
+		<p>
+			When overriding these you can override these functions and do the things you would like to do. <br/>
+			Although in most cases it isn't needed to override the controller and it is better to override the row or model.
+		</p>
+		<p class="text-warning">
+			When creating own request method, be sure to add them to the permission set of the controller. <br/>
+			When this isn't done you will receive a 401 error.
+		</p>
+
+		<h5>Permissions</h5>
+		<p>
+			Talking about permissions, this is a great time to handle them. <br/>
+			In the permissions folder in the controllers folder you can create files named according to the controller name to override the permissions.
+		</p>
+		<p>
+			When you require to change the permissions you can do it here. The context given in the context contains request, response and user object which is filled after dispatch.
+			<br/> Below I will show an example.
+		</p>
+	{% highlight javascript linenos %}
+	var Permission  = require('raddish').Permission;
+	var util        = require('util');
+
+	function ExamplePermission() {
+
+	}
+
+	util.inherits(ExamplePermission, Permission);
+
+	ExamplePermission.prototype.canGet = function(context) {
+		if(context.user.username && context.user.password) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	module.exports = ExamplePermission;{% endhighlight %}
+		<p>
+			Here we have overridden the permissions on a GET request, when the user is loggedin then the data is returned. Else a 401 error is returned.
+		</p>
+
+		<h5>Model</h5>
+		<p>
+			The part you will do most of the overrides is the model. <br/>
+			There are three main places to do the overrides which are the following functions
+		</p>
+		<ul>
+			<li>constructor</li>
+			<li>_buildQuery functions</li>
+		</ul>
+		<p>
+			When adding more states you can set these in the constructor of the object, <br/>
+			and add these functions to the _buildQuery functions (when working with a database). Below I will give an example.
+		</p>
+
+		{% highlight javascript linenos %}
+
+		var Model   = require('raddish').Model;
+		var util    = require('util');
+
+		function ExampleModel() {
+			ExampleModel.super_.call(this);
+
+			this.states.insert('category_id');
+		}
+
+		util.inherits(ExampleModel, Model);
+
+		ExampleModel.prototype.buildQueryWhere = function(self, query, next) {
+			// Call the parent to make sure everything goes according to plan.
+			ExampleModel.super_.prototype.buildQueryWhere.call(this, self, query, function() {
+				// We still use callbacks here so don't worry ;)
+				query.where('tbl.category_id = ?', self.state.get('category_id'));
+
+				next();
+			});
+		};
+
+		module.exports = ExampleModel;{% endhighlight %}
+		<p>
+			Here we add a state called <code>category_id</code> When this state is given in the request as a get variable the system will detect this and automatically filter on this.
+			<br/> There are a few _buildQuery functions here is a list of them
+		</p>
+		<ul>
+			<li>buildQueryColumns</li>
+			<li>buildQueryFrom</li>
+			<li>buildQueryJoins</li>
+			<li>buildQueryWhere</li>
+			<li>buildQueryGroup</li>
+			<li>buildQueryHaving</li>
+			<li>buildQueryOrder</li>
+			<li>buildQueryLimit</li>
+		</ul>
+		<p>
+			Each function should be clear what the purpose is ;)
+		</p>
+
+		<h5>Table</h5>
+		<p>
+			This is the object used to set the table from which the data is to be gotten. And if wanted to set a connection at late.
+			<br/> Although the connection setting is preferred to be done in the config for performance reasons.
+		</p>
+		<p>
+			How does this work? I will give an example below.
+		</p>
+
+	{% highlight javascript linenos %}
+	var Table   = require('raddish').Table;
+	var util    = require('util');
+
+	function ExampleTable() {
+
+	};
+
+	util.inherits(ExampleTable, Table);
+
+	ExampleTable.prototype.initialize = function(config) {
+		config.name = 'foo_bars';
+
+		return ExampleTable.super_.prototype.initialize.call(this, config);
+	};
+
+	module.exports = ExampleTable;{% endhighlight %}
+		<p>
+			Here we have overridden the default behavior of the framework which by default sets the table name to <code>&lt;component_name&gt;_&lt;view_name&gt;</code>
+			<br/> In this case we use the table foo_bars but it can also be the table users, there is no restriction on table name.
+		</p>
 	</div>
 </div>
