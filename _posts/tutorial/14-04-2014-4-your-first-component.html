@@ -4,3 +4,38 @@ permalink: /tutorial/your-first-component.html
 category: tutorial
 layout: default
 ---
+
+<div class="page-header">
+	<h1>Your first component</h1>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<p>
+			The smaller parts of an application are the components. <br/>
+			The system will check if a component exists if it does it might call the dispatcher to further handle the chain.
+		</p>
+		<p>
+			To create a component go to the application you just created and create the components folder you configured.
+			<br/> In here create a folder with the name of the application and within this folder create a JavaScript file with the same name.
+			<br/> This is the bootstrapper of our component. Below we will show you an example.
+		</p>
+
+	{% highlight javascript linenos %}
+	var Base = require('raddish').Base;
+
+	function ComponentMenu(request, response) {
+		Base.getObject('home:menu.dispatcher')
+			.then(function(dispatcher) {
+				dispatcher.dispatch(request, response);
+			});
+	}
+
+	module.exports = ComponentMenu;{% endhighlight %}
+
+		<p>
+			What this does is the script will try to get the dispatcher of the component by Identifier (more on identifiers in the next tutorial).
+			<br/> And when this call is done it will dispatch the dispatcher with the request and the response.
+		</p>
+	</div>
+</div>

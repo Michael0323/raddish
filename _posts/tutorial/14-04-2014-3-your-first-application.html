@@ -18,5 +18,34 @@ layout: default
 			Raddish exists of Applications and Components, in this part we will handle Applications first. <br/>
 			The reason for this is that components live inside of an application.
 		</p>
+		<p>
+			In the application you can control where the components are located, this can be done by setting the componentFolder in the config of the application.
+			<br/> The setting can be done in different ways, or you set it directly this.config.conponentFolder = __dirname + "bar"; of by this.setConfig and give it an object.
+			<br/> Following an example of a basic application.
+		</p>
+
+	{% highlight javascript linenos %}
+	var Application = require('raddish').Application;
+	var util = require('util');
+
+	function ApplicationFoo() {
+		ApplicationFoo.super_.call(this);
+
+		// Possibility 1
+		this.config.componentFolder = __dirname + '/components';
+
+		// Possibility 2
+		this.setConfig({
+			componentFolder: __dirname + '/components';
+		});
+	};
+
+	util.inherits(ApplicationFoo, Application);
+
+	module.exports = ApplicationFoo;{% endhighlight %}
 	</div>
+
+	<p>
+		This is the base for an application.
+	</p>
 </div>
