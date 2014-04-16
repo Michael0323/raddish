@@ -20,17 +20,17 @@ layout: default
 		<p>
 			The app.js is very simple below is an example to use in a project.
 	{% highlight javascript linenos %}
-	var Router  = require('raddish').Router;
-	var http    = require('http');
+	var raddish = require('raddish');
 
-	http.createServer(function(req, res) {
-		new Router().route(req, res);
-	}).listen(1337);
-	console.log('Server running on port: 1337');{% endhighlight %}
+	raddish.setConfig(require('./config.js');
+	raddish.setApplication('foo', 'apps/foo/app.js');
+
+	raddish.start();{% endhighlight %}
 		</p>
 		<p>
-			This will create a http server which will listen to requests, when you request a file or data from the application the router will handle the request. <br />
-			When the file is found it will return it.
+			This will require raddish as the npm module and all we have to do here is set the config, this can either be the config.js file or an Object literal.
+			<br/> After this we register our "foo" application and point it to the application file. Here you can have as much applications as you want.<br/>
+			After this has been done we will start raddish by calling the start command.
 		</p>
 		<p>
 			Next is the config.js where all the configuration options are set. Below I will give an example to use.
@@ -43,11 +43,13 @@ layout: default
 				"port": 3306,
 				"user": "root",
 				"password": "root",
-				"database": "foo"
+				"database": "foo",
+				"prefix": false
 			}
 		},
 		"layout": "json",
-		"gzip": false
+		"gzip": false,
+		"port": 1337
 	}{% endhighlight %}
 		</p>
 		<p>
@@ -69,6 +71,9 @@ layout: default
 
 			<dt>gzip</dt>
 			<dd>Allow the response data to be gzipped to save bandwith data, this might be useful for mobile applications.</dd>
+
+			<dt>port</dt>
+			<dd>The port on which the application will listen.</dd>
 		</dl>
 		</p>
 		<p>
