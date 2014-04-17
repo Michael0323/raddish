@@ -133,41 +133,34 @@ layout: default
 		<h5>Model</h5>
 		<p>
 			The part you will do most of the overrides is the model. <br/>
-			There are three main places to do the overrides which are the following functions
-		</p>
-		<ul>
-			<li>constructor</li>
-			<li>_buildQuery functions</li>
-		</ul>
-		<p>
 			When adding more states you can set these in the constructor of the object, <br/>
 			and add these functions to the _buildQuery functions (when working with a database). Below I will give an example.
 		</p>
 
-		{% highlight javascript linenos %}
+	{% highlight javascript linenos %}
 
-		var Model   = require('raddish').Model;
-		var util    = require('util');
+	var Model   = require('raddish').Model;
+	var util    = require('util');
 
-		function ExampleModel() {
-			ExampleModel.super_.call(this);
+	function ExampleModel() {
+		ExampleModel.super_.call(this);
 
-			this.states.insert('category_id');
-		}
+		this.states.insert('category_id');
+	}
 
-		util.inherits(ExampleModel, Model);
+	util.inherits(ExampleModel, Model);
 
-		ExampleModel.prototype.buildQueryWhere = function(self, query, next) {
-			// Call the parent to make sure everything goes according to plan.
-			ExampleModel.super_.prototype.buildQueryWhere.call(this, self, query, function() {
-				// We still use callbacks here so don't worry ;)
-				query.where('tbl.category_id = ?', self.state.get('category_id'));
+	ExampleModel.prototype.buildQueryWhere = function(self, query, next) {
+		// Call the parent to make sure everything goes according to plan.
+		ExampleModel.super_.prototype.buildQueryWhere.call(this, self, query, function() {
+			// We still use callbacks here so don't worry ;)
+			query.where('tbl.category_id = ?', self.state.get('category_id'));
 
-				next();
-			});
-		};
+			next();
+		});
+	};
 
-		module.exports = ExampleModel;{% endhighlight %}
+	module.exports = ExampleModel;{% endhighlight %}
 		<p>
 			Here we add a state called <code>category_id</code> When this state is given in the request as a get variable the system will detect this and automatically filter on this.
 			<br/> There are a few _buildQuery functions here is a list of them
