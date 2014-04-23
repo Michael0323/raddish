@@ -233,7 +233,7 @@ layout: default
 		var identifier = this.getIdentifier().clone();
 		var self = this;
 
-		this.getObject(identifier.setPath(['model]), null)
+		this.getService(identifier.setPath(['model']), null)
 			.then(function(model) {
 				var descendants = model.set('parent_id', self.data.id).getList();
 

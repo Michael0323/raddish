@@ -49,7 +49,13 @@ layout: default
 		},
 		"layout": "json",
 		"gzip": false,
-		"port": 1337
+		"port": 1337,
+		"threads": {
+			"maxThreads": 16,
+			"maxThreshold": 50,
+			"minThreshold": 10,
+			"interval": 500
+		}
 	}{% endhighlight %}
 		</p>
 		<p>
@@ -66,7 +72,7 @@ layout: default
 			<dd>
 				This is the default format which will be outputted by the system, by default this is JSON <br />
 				this can be changed to every layout you want. Also if you want a single request to have a different layout <br />
-				yo can send the get-variable layout in the request with the needed layout type, by default only JSON is in the core.
+				you can send the get-variable layout in the request with the needed layout type, by default only JSON is in the core.
 			</dd>
 
 			<dt>gzip</dt>
@@ -74,6 +80,13 @@ layout: default
 
 			<dt>port</dt>
 			<dd>The port on which the application will listen.</dd>
+
+			<dt>threads</dt>
+			<dd>
+				This is a special one, this one can contain false, true or an object <br/>
+				When giving false the threading will be completely disabled, when give try it will be started with the default settings as shown in the example <br/>
+				When given an object you can override some or all the defaults.
+			</dd>
 		</dl>
 		</p>
 		<p>

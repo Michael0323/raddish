@@ -22,10 +22,10 @@ layout: default
 		</p>
 
 	{% highlight javascript linenos %}
-	var Base = require('raddish').Base;
+	var Service = require('raddish').Service;
 
 	function ComponentMenu(request, response) {
-		Base.getObject('home:menu.dispatcher')
+		Service.getObject('home:menu.dispatcher')
 			.then(function(dispatcher) {
 				dispatcher.dispatch(request, response);
 			});
