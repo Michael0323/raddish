@@ -1,0 +1,53 @@
+---
+title: Table
+permalink: /tutorial/overrides/table.html
+category: overrides
+layout: default
+---
+
+<div class="page-header">
+	<h1>Table</h1>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+		<ul class="override-nav">
+			{% for post in site.categories.overrides reversed %}
+			<li>
+				<a href="{{ site.baseurl }}{{ post.url }}" {% if page.url == post.url %} class="active" {% endif; %}>{{ post.title }}</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="col-md-9">
+		<p>
+			This is the object used to set the table from which the data is to be gotten. And if wanted to set a connection at late.
+			<br/> Although the connection setting is preferred to be done in the config for performance reasons.
+		</p>
+		<p>
+			How does this work? I will give an example below.
+		</p>
+
+	{% highlight javascript linenos %}
+	var Table   = require('raddish').Table;
+	var util    = require('util');
+
+	function ExampleTable() {
+
+	};
+
+	util.inherits(ExampleTable, Table);
+
+	ExampleTable.prototype.initialize = function(config) {
+		config.name = 'foo_bars';
+
+		return ExampleTable.super_.prototype.initialize.call(this, config);
+	};
+
+	module.exports = ExampleTable;{% endhighlight %}
+		<p>
+			Here we have overridden the default behavior of the framework which by default sets the table name to <code>&lt;component_name&gt;_&lt;view_name&gt;</code>
+			<br/> In this case we use the table foo_bars but it can also be the table users, there is no restriction on table name.
+		</p>
+	</div>
+</div>

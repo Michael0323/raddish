@@ -1,0 +1,56 @@
+---
+title: Permissions
+permalink: /tutorial/overrides/permissions.html
+category: overrides
+layout: default
+---
+
+<div class="page-header">
+	<h1>Permissions</h1>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+		<ul class="override-nav">
+			{% for post in site.categories.overrides reversed %}
+			<li>
+				<a href="{{ site.baseurl }}{{ post.url }}" {% if page.url == post.url %} class="active" {% endif; %}>{{ post.title }}</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="col-md-9">
+		<p>
+			Talking about permissions, this is a great time to handle them. <br/>
+			In the permissions folder in the controllers folder you can create files named according to the controller name to override the permissions.
+		</p>
+		<p>
+			When you require to change the permissions you can do it here. The context given in the context contains request, response and user object which is filled after dispatch.
+			<br/> Below I will show an example.
+		</p>
+
+	{% highlight javascript linenos %}
+	var Permission  = require('raddish').Permission;
+	var util        = require('util');
+
+	function ExamplePermission() {
+
+	}
+
+	util.inherits(ExamplePermission, Permission);
+
+	ExamplePermission.prototype.canGet = function(context) {
+		if(context.user.username && context.user.password) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	module.exports = ExamplePermission;{% endhighlight %}
+
+		<p>
+			Here we have overridden the permissions on a GET request, when the user is loggedin then the data is returned. Else a 401 error is returned.
+		</p>
+	</div>
+</div>

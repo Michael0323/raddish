@@ -15,7 +15,16 @@ layout: default
 </div>
 
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-3">
+		<ul class="override-nav">
+			{% for post in site.categories.overrides reversed %}
+				<li>
+					<a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="col-md-9">
 		<p>
 			You will come at a point where the default isn't enough and you need more functionality, We are please to tell this is no problem at all.
 			<br/> There are quite a few places you can override. The places are: The global application scope and the component scope.
@@ -45,213 +54,6 @@ layout: default
 		<p>
 			These are overrides for specific components and only for this single component. <br/>
 			We will go through everything from simple dispatcher and views to behaviours (DCI) <br/>
-		</p>
-
-		<h5>Dispatcher</h5>
-		<p>
-			The dispatcher is the handler of request and response and thus will handle the output accordingly. <br/>
-			Also when there is no view given in the request the dispatcher will assume a view which is by default the plural of the component name
-		</p>
-		<p>
-			When you want this can be overridden by adding the config variable controller in the initialize function of the dispatcher, below an example.
-	{% highlight javascript linenos %}
-	var Dispatcher  = require('raddish').Dispatcher;
-	var util        = require('util');
-
-	function ExampleDispatcher() {
-		ExampleDispatcher.super_.call(this);
-	};
-
-	util.inherits(ExampleDispatcher, Dispatcher);
-
-	ExampleDispatcher.prototype.initialize = function(config) {
-		config.controller = 'foo';
-
-		return ExampleDispatcher.super_.prototype.initialize.call(this, config);
-	};
-
-	module.exports = ExampleDispatcher;{% endhighlight %}
-
-			In this example we have set the default controller when there is no view found. So when we go to http://example.com/web/example it will automatically show the contents of foo.
-			<br/> And when you go to http://example.com/web/example/bars it will show the content of bars.
-		</p>
-
-		<h5>Controller</h5>
-		<p>
-			The controller reacts on what the user does, in this case the request methods. (GET, POST and DELETE), <br/>
-			When required the controller can also handle custom methods, but this ofcourse is discouraged.
-		</p>
-		<p>
-			The functions used for request methods are by default:
-		</p>
-		<ul>
-			<li>_actionGet</li>
-			<li>_actionPost</li>
-			<li>_actionDelete</li>
-		</ul>
-		<p>
-			When overriding these you can override these functions and do the things you would like to do. <br/>
-			Although in most cases it isn't needed to override the controller and it is better to override the row or model.
-		</p>
-		<p class="text-warning">
-			When creating own request method, be sure to add them to the permission set of the controller. <br/>
-			When this isn't done you will receive a 401 error.
-		</p>
-
-		<h5>Permissions</h5>
-		<p>
-			Talking about permissions, this is a great time to handle them. <br/>
-			In the permissions folder in the controllers folder you can create files named according to the controller name to override the permissions.
-		</p>
-		<p>
-			When you require to change the permissions you can do it here. The context given in the context contains request, response and user object which is filled after dispatch.
-			<br/> Below I will show an example.
-		</p>
-	{% highlight javascript linenos %}
-	var Permission  = require('raddish').Permission;
-	var util        = require('util');
-
-	function ExamplePermission() {
-
-	}
-
-	util.inherits(ExamplePermission, Permission);
-
-	ExamplePermission.prototype.canGet = function(context) {
-		if(context.user.username && context.user.password) {
-			return true;
-		} else {
-			return false;
-		}
-	};
-
-	module.exports = ExamplePermission;{% endhighlight %}
-		<p>
-			Here we have overridden the permissions on a GET request, when the user is loggedin then the data is returned. Else a 401 error is returned.
-		</p>
-
-		<h5>Model</h5>
-		<p>
-			The part you will do most of the overrides is the model. <br/>
-			When adding more states you can set these in the constructor of the object, <br/>
-			and add these functions to the _buildQuery functions (when working with a database). Below I will give an example.
-		</p>
-
-	{% highlight javascript linenos %}
-
-	var Model   = require('raddish').Model;
-	var util    = require('util');
-
-	function ExampleModel() {
-		ExampleModel.super_.call(this);
-
-		this.states.insert('category_id');
-	}
-
-	util.inherits(ExampleModel, Model);
-
-	ExampleModel.prototype.buildQueryWhere = function(self, query, next) {
-		// Call the parent to make sure everything goes according to plan.
-		ExampleModel.super_.prototype.buildQueryWhere.call(this, self, query, function() {
-			// We still use callbacks here so don't worry ;)
-			query.where('tbl.category_id = ?', self.state.get('category_id'));
-
-			next();
-		});
-	};
-
-	module.exports = ExampleModel;{% endhighlight %}
-		<p>
-			Here we add a state called <code>category_id</code> When this state is given in the request as a get variable the system will detect this and automatically filter on this.
-			<br/> There are a few _buildQuery functions here is a list of them
-		</p>
-		<ul>
-			<li>buildQueryColumns</li>
-			<li>buildQueryFrom</li>
-			<li>buildQueryJoins</li>
-			<li>buildQueryWhere</li>
-			<li>buildQueryGroup</li>
-			<li>buildQueryHaving</li>
-			<li>buildQueryOrder</li>
-			<li>buildQueryLimit</li>
-		</ul>
-		<p>
-			Each function should be clear what the purpose is ;)
-		</p>
-
-		<h5>Table</h5>
-		<p>
-			This is the object used to set the table from which the data is to be gotten. And if wanted to set a connection at late.
-			<br/> Although the connection setting is preferred to be done in the config for performance reasons.
-		</p>
-		<p>
-			How does this work? I will give an example below.
-		</p>
-
-	{% highlight javascript linenos %}
-	var Table   = require('raddish').Table;
-	var util    = require('util');
-
-	function ExampleTable() {
-
-	};
-
-	util.inherits(ExampleTable, Table);
-
-	ExampleTable.prototype.initialize = function(config) {
-		config.name = 'foo_bars';
-
-		return ExampleTable.super_.prototype.initialize.call(this, config);
-	};
-
-	module.exports = ExampleTable;{% endhighlight %}
-		<p>
-			Here we have overridden the default behavior of the framework which by default sets the table name to <code>&lt;component_name&gt;_&lt;view_name&gt;</code>
-			<br/> In this case we use the table foo_bars but it can also be the table users, there is no restriction on table name.
-		</p>
-
-		<h5>Row/ Rowset</h5>
-		<p>
-			This are the objects which will be placed in the response, you can give these objects extra functions which might be used in behaviors.
-			<br/> These functions can hold anything. Unfortunately functions cannot be exported between javascript and other languages so these aren't available in the response.
-		</p>
-		<p>
-			I will show you an example of an extra function below.
-		</p>
-
-	{% highlight javascript linenos %}
-	var Row     = require('raddish').Row;
-	var util    = require('util');
-
-	function ExampleRow() {
-
-	};
-
-	util.inherits(ExampleRow, Row);
-
-	ExampleRow.prototype.getRelations = function() {
-		var identifier = this.getIdentifier().clone();
-		var self = this;
-
-		this.getService(identifier.setPath(['model']), null)
-			.then(function(model) {
-				var descendants = model.set('parent_id', self.data.id).getList();
-
-				self.data.descendants = descendants;
-
-				return self;
-			});
-	};{% endhighlight %}
-
-		<p>
-			In this example we have created the function getDescendants this will get all the descendants of our current object.
-			<br/> This function can then be used inside of o behavior to get all the descendants of an object when needed. The same is possible on rowset.
-		</p>
-		<p>
-			Also above we create a clone of the identifier, this is done because else the identifier of the Row object is changed which might break the application.
-		</p>
-		<p>
-			This covers the most of the objects we have, next up the behaviors and their power.
 		</p>
 	</div>
 </div>

@@ -7,6 +7,30 @@ footer {
 	bottom: 0px;
 	width: 100%;
 	background: #FFFFFF;
-	border-top: 1px solid #eee;
+	border-top: 2px solid #E32454;
 	padding: 15px 0px;
+}
+
+.navbar {
+	background: #ffffff;
+	border-radius: 0px;
+	border-bottom: 2px solid #E32454;
+}
+
+.navbar .navbar-brand {
+	color: #008000;
+}
+
+.override-nav {
+	padding-left: 0px;
+}
+
+.override-nav li {
+	list-style: none;
+}
+
+.override-nav li a.active {
+	margin-left: 5px;
+	padding-left: 5px;
+	border-left: 2px solid #E32454;
 }

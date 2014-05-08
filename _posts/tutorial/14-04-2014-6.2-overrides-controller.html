@@ -1,0 +1,44 @@
+---
+title: Controller
+permalink: /tutorial/overrides/controller.html
+category: overrides
+layout: default
+---
+
+<div class="page-header">
+	<h1>Controller</h1>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+		<ul class="override-nav">
+			{% for post in site.categories.overrides reversed %}
+			<li>
+				<a href="{{ site.baseurl }}{{ post.url }}" {% if page.url == post.url %} class="active" {% endif; %}>{{ post.title }}</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="col-md-9">
+		<p>
+			The controller reacts on what the user does, in this case the request methods. (GET, POST and DELETE), <br/>
+			When required the controller can also handle custom methods, but this ofcourse is discouraged.
+		</p>
+		<p>
+			The functions used for request methods are by default:
+		</p>
+		<ul>
+			<li>_actionGet</li>
+			<li>_actionPost</li>
+			<li>_actionDelete</li>
+		</ul>
+		<p>
+			When overriding these you can override these functions and do the things you would like to do. <br/>
+			Although in most cases it isn't needed to override the controller and it is better to override the row or model.
+		</p>
+		<p class="text-warning">
+			When creating own request method, be sure to add them to the permission set of the controller. <br/>
+			When this isn't done you will receive a 401 error.
+		</p>
+	</div>
+</div>

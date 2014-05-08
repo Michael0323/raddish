@@ -1,0 +1,66 @@
+---
+title: Row/ Rowset
+permalink: /tutorial/overrides/row-rowset.html
+category: overrides
+layout: default
+---
+
+<div class="page-header">
+	<h1>Row/ Rowset</h1>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+		<ul class="override-nav">
+			{% for post in site.categories.overrides reversed %}
+			<li>
+				<a href="{{ site.baseurl }}{{ post.url }}" {% if page.url == post.url %} class="active" {% endif; %}>{{ post.title }}</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="col-md-9">
+		<p>
+			This are the objects which will be placed in the response, you can give these objects extra functions which might be used in behaviors.
+			<br/> These functions can hold anything. Unfortunately functions cannot be exported between javascript and other languages so these aren't available in the response.
+		</p>
+		<p>
+			I will show you an example of an extra function below.
+		</p>
+
+	{% highlight javascript linenos %}
+	var Row     = require('raddish').Row;
+	var util    = require('util');
+
+	function ExampleRow() {
+
+	};
+
+	util.inherits(ExampleRow, Row);
+
+	ExampleRow.prototype.getRelations = function() {
+		var identifier = this.getIdentifier().clone();
+		var self = this;
+
+		return this.getService(identifier.setPath(['model']), null)
+			.then(function(model) {
+				var descendants = model.set('parent_id', self.data.id).getList();
+
+				self.data.descendants = descendants;
+
+				return self;
+			});
+	};{% endhighlight %}
+
+		<p>
+			In this example we have created the function getDescendants this will get all the descendants of our current object.
+			<br/> This function can then be used inside of o behavior to get all the descendants of an object when needed. The same is possible on rowset.
+		</p>
+		<p>
+			Also above we create a clone of the identifier, this is done because else the identifier of the Row object is changed which might break the application.
+		</p>
+		<p>
+			This covers the most of the objects we have, next up the behaviors and their power.
+		</p>
+	</div>
+</div>
