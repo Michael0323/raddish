@@ -14,6 +14,12 @@ layout: default
 		<p>
 			Identifiers are a huge advantage in this framework. <br/>
 			With them you are able to load all kinds of objects, from controllers, to views and behaviours wherever and whenever.
+			<br/> Thanks to the system its fallback principle you will receive the object you try to get, even when the object isn't really there.
+			<br/> Only when an object can't be found it will return a 500 error, which will only in a very rare occasion happen.
+		</p>
+
+		<p>
+			A simple way to define the identifiers is: <code>Service.get('&lt;application&gt;:&lt;component&gt;.&lt;path&gt;.&lt;name&gt;')</code> here path is a dot separated path.
 		</p>
 
 		<p>
@@ -26,9 +32,7 @@ layout: default
 			<br/> eg: <code>Service.get('bar:menu.model.item')</code> <br/>
 		</p>
 		<p>
-			A simple way to define the identifiers is: <code>Service.get('&lt;application&gt;:&lt;component&gt;.&lt;path&gt;.&lt;name&gt;')</code> here path is a dot separated path.
-			<br/> Another example but then for the table row <code>Service.get('bar:menu.database.row.item')</code>
-			<br/> If the object isn't present don't worry it will return a fallback.
+			Another example but then for the table row <code>Service.get('bar:menu.database.row.item')</code>
 		</p>
 
 		<p class="text-info">
