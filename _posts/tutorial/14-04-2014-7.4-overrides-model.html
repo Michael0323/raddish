@@ -10,16 +10,16 @@ layout: default
 </div>
 
 <div class="row">
-	<div class="col-md-3">
+	<div class="col-md-2">
 		<ul class="override-nav">
 			{% for post in site.categories.overrides reversed %}
-			<li>
-				<a href="{{ site.baseurl }}{{ post.url }}" {% if page.url == post.url %} class="active" {% endif; %}>{{ post.title }}</a>
-			</li>
+				<li>
+					<a href="{{ site.baseurl }}{{ post.url }}" {% if post.url == page.url %} class="active" {% endif %}>{{ post.title }}</a>
+				</li>
 			{% endfor %}
 		</ul>
 	</div>
-	<div class="col-md-9">
+	<div class="col-md-10">
 		<p>
 			The part you will do most of the overrides is the model. <br/>
 			When adding more states you can set these in the constructor of the object, <br/>

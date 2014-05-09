@@ -10,16 +10,16 @@ layout: default
 </div>
 
 <div class="row">
-	<div class="col-md-3">
+	<div class="col-md-2">
 		<ul class="override-nav">
 			{% for post in site.categories.overrides reversed %}
-			<li>
-				<a href="{{ site.baseurl }}{{ post.url }}" {% if page.url == post.url %} class="active" {% endif; %}>{{ post.title }}</a>
-			</li>
+				<li>
+					<a href="{{ site.baseurl }}{{ post.url }}" {% if post.url == page.url %} class="active" {% endif %}>{{ post.title }}</a>
+				</li>
 			{% endfor %}
 		</ul>
 	</div>
-	<div class="col-md-9">
+	<div class="col-md-10">
 		<p>
 			The dispatcher is the handler of request and response and thus will handle the output accordingly. <br/>
 			Also when there is no view given in the request the dispatcher will assume a view which is by default the plural of the component name

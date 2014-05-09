@@ -10,16 +10,16 @@ layout: default
 </div>
 
 <div class="row">
-	<div class="col-md-3">
+	<div class="col-md-2">
 		<ul class="override-nav">
 			{% for post in site.categories.overrides reversed %}
-			<li>
-				<a href="{{ site.baseurl }}{{ post.url }}" {% if page.url == post.url %} class="active" {% endif; %}>{{ post.title }}</a>
-			</li>
+				<li>
+					<a href="{{ site.baseurl }}{{ post.url }}" {% if post.url == page.url %} class="active" {% endif %}>{{ post.title }}</a>
+				</li>
 			{% endfor %}
 		</ul>
 	</div>
-	<div class="col-md-9">
+	<div class="col-md-10">
 		<p>
 			Talking about permissions, this is a great time to handle them. <br/>
 			In the permissions folder in the controllers folder you can create files named according to the controller name to override the permissions.

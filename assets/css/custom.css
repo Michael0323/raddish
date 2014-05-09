@@ -1,4 +1,5 @@
 body {
+	margin-top: 60px;
 	margin-bottom: 65px;
 }
 
@@ -12,12 +13,18 @@ footer {
 }
 
 .navbar {
+	margin-bottom: 0px;
 	background: #ffffff;
 	border-radius: 0px;
 	border-bottom: 2px solid #E32454;
 }
 
-.navbar .navbar-brand {
+.page-header {
+	margin-top: 0px;
+}
+
+.navbar .navbar-brand,
+.navbar .navbar-brand:hover {
 	color: #008000;
 }
 
@@ -30,7 +37,6 @@ footer {
 }
 
 .override-nav li a.active {
-	margin-left: 5px;
-	padding-left: 5px;
+	padding-left: 10px;
 	border-left: 2px solid #E32454;
 }
