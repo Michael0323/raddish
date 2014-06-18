@@ -22,7 +22,7 @@ layout: default
 	{% highlight javascript linenos %}
 	var raddish = require('raddish');
 
-	raddish.setConfig(require('./config.js');
+	raddish.setConfig(require('./config.json');
 	raddish.setApplication('foo', 'apps/foo/app.js');
 
 	raddish.start();{% endhighlight %}
@@ -33,10 +33,10 @@ layout: default
 			After this has been done we will start raddish by calling the start command.
 		</p>
 		<p>
-			Next is the config.js where all the configuration options are set. Below I will give an example to use.
+			Next is the config.json where all the configuration options are set. Below I will give an example to use.
 
 	{% highlight javascript linenos %}
-	module.exports = {
+	{
 		"db": {
 			"default": {
 				"host": "localhost",

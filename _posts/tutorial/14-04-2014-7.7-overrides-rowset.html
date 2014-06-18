@@ -32,8 +32,8 @@ layout: default
 	var Row     = require('raddish').Row;
 	var util    = require('util');
 
-	function ExampleRow() {
-
+	function ExampleRow(config) {
+		ExampleRow.super_.call(this, config);
 	};
 
 	util.inherits(ExampleRow, Row);

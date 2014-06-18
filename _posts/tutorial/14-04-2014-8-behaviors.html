@@ -21,15 +21,15 @@ layout: default
 
 	{% highlight javascript linenos %}
 	var Rowset  = require('raddish').Rowset;
-	var Base    = require('raddish').Base;
+	var Service = require('raddish').Service;
 	var util    = require('util');
 	var async   = require('async');
 
-	function ExampleBehavior() {
-
+	function ExampleBehavior(config) {
+		ExampleBehavior.super_.call(this, config);
 	};
 
-	util.inherits(ExampleBehavior, Base);
+	util.inherits(ExampleBehavior, Service);
 
 	ExampleBehavior.prototype.onAfterGet = function(context) {
 		return new Promise(function(resolve, reject) {

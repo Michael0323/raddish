@@ -32,14 +32,17 @@ layout: default
 	var Table   = require('raddish').Table;
 	var util    = require('util');
 
-	function ExampleTable() {
-
+	function ExampleTable(config) {
+		Table.call(this, config);
 	};
 
 	util.inherits(ExampleTable, Table);
 
 	ExampleTable.prototype.initialize = function(config) {
 		config.name = 'foo_bars';
+		config.behaviors = {
+			"socketable": {}
+		};
 
 		return ExampleTable.super_.prototype.initialize.call(this, config);
 	};
@@ -48,6 +51,7 @@ layout: default
 		<p>
 			Here we have overridden the default behavior of the framework which by default sets the table name to <code>&lt;component_name&gt;_&lt;view_name&gt;</code>
 			<br/> In this case we use the table foo_bars but it can also be the table users, there is no restriction on table name.
+			<br/> Also we set one behavior namely socketable with no extra config.
 		</p>
 	</div>
 </div>

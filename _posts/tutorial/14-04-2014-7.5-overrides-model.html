@@ -34,7 +34,7 @@ layout: default
 	function ExampleModel() {
 		ExampleModel.super_.call(this);
 
-		this.states.insert('category_id');
+		this.states.insert('category_id', 'int');
 	}
 
 	util.inherits(ExampleModel, Model);
@@ -61,7 +61,7 @@ layout: default
 			<br/> which is for sync operations. When we are done we return the parent function.
 		</p>
 		<p>
-			Here we add a state called <code>category_id</code> When this state is given in the request as a get variable the system will detect this and automatically filter on this.
+			Here we add a state called <code>category_id</code> which is defined as an int. When this state is given in the request as a get variable the system will detect this and automatically filter on this.
 			<br/> There are a few _buildQuery functions here is a list of them
 		</p>
 		<ul>

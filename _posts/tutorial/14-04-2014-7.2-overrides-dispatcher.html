@@ -30,8 +30,8 @@ layout: default
 	var Dispatcher  = require('raddish').Dispatcher;
 	var util        = require('util');
 
-	function ExampleDispatcher() {
-	ExampleDispatcher.super_.call(this);
+	function ExampleDispatcher(config) {
+		ExampleDispatcher.super_.call(this, config);
 	};
 
 	util.inherits(ExampleDispatcher, Dispatcher);

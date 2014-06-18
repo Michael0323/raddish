@@ -1,0 +1,64 @@
+---
+title: Config
+permalink: /tutorial/overrides/config.html
+category: overrides
+layout: default
+---
+
+<div class="page-header">
+	<h1>Config</h1>
+</div>
+
+<div class="row">
+	<div class="col-md-2">
+		<ul class="override-nav">
+			{% for post in site.categories.overrides reversed %}
+			<li>
+				<a href="{{ site.baseurl }}{{ post.url }}" {% if post.url == page.url %} class="active" {% endif %}>{{ post.title }}</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="col-md-10">
+		<p>
+			This is most likely the easiest way to override some of the variables in the system. <br/>
+			At the moment this only works on controllers and tables.
+		</p>
+		<p>
+			When creating a component and a table/ controller only needs some behaviors you can create a config.json in the root of the component.
+			<br/> This file will automatically be used. One might look like this:
+		</p>
+
+		{% highlight javascript linenos %}
+	{
+		"controllers": {
+			"foo": {
+				"behaviors": {
+					"uploadable": {}
+				}
+			}
+		},
+		"tables": {
+			"foo": {
+				"behaviors": {
+					"socketable": {},
+					"home:foo.database.table.behavior.bar": {}
+				},
+				"name": "foo_bar_baz"
+			}
+		}
+	}{% endhighlight %}
+
+		<p>
+			As you can see we bound behaviors to the foo controller, <br/>
+			and added behaviors to the foo table and set the table name it has to use to foo_bar_baz without having to create a table override.
+		</p>
+		<p>
+			The added behaviors are key, value so the key is the behavior to load and the value is the config for the behavior.
+		</p>
+		<p>
+			This might come in handy if this is the only thing you want to override. <br/>
+			When needed more specific overrides you need to override the object.
+		</p>
+	</div>
+</div>
