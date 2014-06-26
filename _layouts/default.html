@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ page.title }}</title>
-        <meta name="viewport" content="width=device-width">
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/bootstrap.css">
@@ -43,6 +43,7 @@
 		        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			        <ul class="nav navbar-nav">
 				        <li {% if page.url == '/index.html' %} class="active" {% endif %}><a href="{{ site.baseurl }}/">Home</a></li>
+                        <li {% if page.url == '/features.html' %} class="active" {% endif %}><a href="{{ site.baseurl }}/features.html">Features</a></li>
 				        <li {% if page.url contains 'tutorial' %} class="active dropdown" {% else %} class="dropdown" {% endif %}>
 				            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 					            Tutorial
