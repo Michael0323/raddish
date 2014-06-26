@@ -12,7 +12,7 @@ layout: default
 </div>
 
 <div class="row">
-	<div class="col-md-9">
+	<div class="col-md-12">
 		<p>
 			First we have to create a two files the application file <code>app.js</code> and <code>config.js</code> the file config.js will hold all the config options <br />
 			like default output format and databases.
@@ -44,7 +44,8 @@ layout: default
 				"user": "root",
 				"password": "root",
 				"database": "foo",
-				"prefix": false
+				"prefix": false,
+				"type": "mysql" // Defaults to mysql but can be set to: mysql, mongo or couch
 			}
 		},
 		"router": {
@@ -59,7 +60,7 @@ layout: default
 				"/foo": "/home/menu/items"
 			}
 		},
-		"layout": "json",
+		"format": "json",
 		"gzip": false,
 		"port": 1337,
 		"threads": {
