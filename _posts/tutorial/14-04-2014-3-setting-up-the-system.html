@@ -37,29 +37,28 @@ layout: default
 
 	{% highlight javascript linenos %}
 	{
-		"db": {
-			"default": {
-				"host": "localhost",
-				"port": 3306,
-				"user": "root",
-				"password": "root",
-				"database": "foo",
-				"prefix": false,
-				"type": "mysql" // Defaults to mysql but can be set to: mysql or mongo
-			}
-		},
-		"router": {
-			"cors": {
-				"origin": "*",
-				"headers": "*",
-				"credentials": true,
-				"method": ["get", "post"],
-
-			},
-			"routes": {
-				"/foo": "/home/menu/items"
-			}
-		},
+        "db": {
+            "default": {
+                "host": "localhost",
+                "port": 3306,
+                "user": "root",
+                "password": "root",
+                "database": "foo",
+                "prefix": false,
+                "type": "mysql" // Defaults to mysql but can be set to: mysql or mongo
+            }
+        },
+        "router": {
+            "cors": {
+                "origin": "*",
+                "headers": "*",
+                "credentials": true,
+                "method": ["get", "post"],
+            },
+            "routes": {
+                "/foo": "/home/menu/items"
+            }
+        },
         "loader": {
             "sequence": [
                 "<App>:<Component>.<Path>.default",
@@ -70,15 +69,16 @@ layout: default
             ]
         },
         "cache": true,
-		"format": "json",
-		"gzip": false,
-		"port": 1337,
-		"threads": {
-			"maxThreads": 16,
-			"maxThreshold": 50,
-			"minThreshold": 10,
-			"interval": 500
-		}
+        "format": "json",
+        "gzip": false,
+        "port": 1337,
+        "publicFolder": "/public", // This is required
+        "threads": {
+            "maxThreads": 16,
+            "maxThreshold": 50,
+            "minThreshold": 10,
+            "interval": 500
+        }
 	}{% endhighlight %}
 		</p>
 		<p>
@@ -91,24 +91,28 @@ layout: default
 				this one will be used by default for other connections you can add ass many as you need/ want.
 			</dd>
 
+            <br/>
 			<dt>router</dt>
 			<dd>
 				This is the router config, in here you can set the CORS (Cross-Origin Resource Sharing) headers, <br/>
 				and the routes used in the system.
 			</dd>
 
+            <br/>
             <dt>loader</dt>
             <dd>
                 This controls the sequence in which the loader will search for a fallback. <br/>
                 If you want you can implement your own fallbacks here. The value shown here is the default value when there is none given.
             </dd>
 
+            <br/>
             <dt>cache</dt>
             <dd>
                 This controls which the cache will be enabled. <br/>
                 When enabled it gived a huge speed increase.
             </dd>
 
+            <br/>
 			<dt>format</dt>
 			<dd>
 				This is the default format which will be outputted by the system, by default this is JSON <br />
@@ -116,12 +120,21 @@ layout: default
 				you can send the get-variable layout in the request with the needed layout type, by default only JSON is in the core.
 			</dd>
 
+            <br/>
 			<dt>gzip</dt>
 			<dd>Allow the response data to be gzipped to save bandwith data, this might be useful for mobile applications.</dd>
 
+            <br/>
 			<dt>port</dt>
 			<dd>The port on which the application will listen.</dd>
 
+            <br/>
+            <dt>publicFolder</dt>
+            <dd>
+                This is the path to the folder which is used to return the static files.
+            </dd>
+
+            <br/>
 			<dt>threads</dt>
 			<dd>
 				This is a special one, this one can contain false, true or an object <br/>
