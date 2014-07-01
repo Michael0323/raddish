@@ -45,13 +45,13 @@ layout: default
 		// Options 1
 		return ExampleModel.super_.prototype.buildQueryWhere.call(this, query, self)
 			.spread(function(query, self) {
-				query.where('tbl.category_id = ?', self.state.get('category_id'));
+				query.where('tbl.category_id', '=', self.state.get('category_id'));
 
 				return [query, self];
 			});
 
 		// Option 2
-		query.where('tbl.category_id = ?', self.state.get('category_id'));
+		query.where('tbl.category_id', '=', self.state.get('category_id'));
 		return ExampleModel.super_.prototype.buildQueryWhere.call(this, query, self)
 	};
 
@@ -75,7 +75,8 @@ layout: default
 			<li>buildQueryLimit</li>
 		</ul>
 		<p>
-			Each function should be clear what the purpose is ;)
+			Each function should be clear what the purpose is ;) <br/>
+            And please don't worry about the different databases, we took care about that ;)
 		</p>
 	</div>
 </div>

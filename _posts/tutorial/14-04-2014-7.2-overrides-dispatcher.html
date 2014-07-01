@@ -37,9 +37,9 @@ layout: default
 	util.inherits(ExampleDispatcher, Dispatcher);
 
 	ExampleDispatcher.prototype.initialize = function(config) {
-	config.controller = 'foo';
+	    config.controller = 'foo';
 
-	return ExampleDispatcher.super_.prototype.initialize.call(this, config);
+	    return ExampleDispatcher.super_.prototype.initialize.call(this, config);
 	};
 
 	module.exports = ExampleDispatcher;{% endhighlight %}
