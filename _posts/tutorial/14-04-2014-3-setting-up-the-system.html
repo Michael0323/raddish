@@ -45,7 +45,7 @@ layout: default
 				"password": "root",
 				"database": "foo",
 				"prefix": false,
-				"type": "mysql" // Defaults to mysql but can be set to: mysql, mongo or couch
+				"type": "mysql" // Defaults to mysql but can be set to: mysql or mongo
 			}
 		},
 		"router": {
@@ -60,6 +60,16 @@ layout: default
 				"/foo": "/home/menu/items"
 			}
 		},
+        "loader": {
+            "sequence": [
+                "<App>:<Component>.<Path>.default",
+                "<App>:default.<Path>.<Name>",
+                "<App>:default.<Path>.default",
+                "core:<Path>.<Name>",
+                "core:<Path>.<Type>"
+            ]
+        },
+        "cache": true,
 		"format": "json",
 		"gzip": false,
 		"port": 1337,
@@ -87,7 +97,19 @@ layout: default
 				and the routes used in the system.
 			</dd>
 
-			<dt>layout</dt>
+            <dt>loader</dt>
+            <dd>
+                This controls the sequence in which the loader will search for a fallback. <br/>
+                If you want you can implement your own fallbacks here. The value shown here is the default value when there is none given.
+            </dd>
+
+            <dt>cache</dt>
+            <dd>
+                This controls which the cache will be enabled. <br/>
+                When enabled it gived a huge speed increase.
+            </dd>
+
+			<dt>format</dt>
 			<dd>
 				This is the default format which will be outputted by the system, by default this is JSON <br />
 				this can be changed to every layout you want. Also if you want a single request to have a different layout <br />
