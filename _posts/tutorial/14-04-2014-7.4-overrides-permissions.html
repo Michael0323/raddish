@@ -39,7 +39,7 @@ layout: default
 
 	util.inherits(ExamplePermission, Permission);
 
-	ExamplePermission.prototype.canGet = function(context) {
+	ExamplePermission.prototype.canBrowse = function(context) {
 		if(context.user.username && context.user.password) {
 			return true;
 		} else {
@@ -47,10 +47,19 @@ layout: default
 		}
 	};
 
+    ExamplePermission.prototype.canRead = function(context) {
+        if(context.user.username && context.user.password) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
 	module.exports = ExamplePermission;{% endhighlight %}
 
 		<p>
-			Here we have overridden the permissions on a GET request, when the user is loggedin then the data is returned. Else a 401 error is returned.
+            We have moved to BREAD (Browse, Read, Edit, Add and Delete) instead of all the http methods.
+			Here we have overridden the permissions on a Browse and Read method, when the user is loggedin then the data is returned. Else a 401 error is returned.
 		</p>
 	</div>
 </div>
