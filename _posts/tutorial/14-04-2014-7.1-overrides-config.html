@@ -44,7 +44,8 @@ layout: default
 					"socketable": {},
 					"home:foo.database.table.behavior.bar": {}
 				},
-				"name": "foo_bar_baz"
+				"name": "foo_bar_baz",
+                "db": "mongo"
 			}
 		}
 	}{% endhighlight %}
@@ -52,6 +53,7 @@ layout: default
 		<p>
 			As you can see we bound behaviors to the foo controller, <br/>
 			and added behaviors to the foo table and set the table name it has to use to foo_bar_baz without having to create a table override.
+            Also we have added a database override. This database has to be defined in the global config.json.
 		</p>
 		<p>
 			The added behaviors are key, value so the key is the behavior to load and the value is the config for the behavior.
