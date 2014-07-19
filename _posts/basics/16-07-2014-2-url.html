@@ -1,0 +1,33 @@
+---
+title: 2. Url
+permalink: /basics/url.html
+category: basics
+layout: default
+---
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>Url</h1>
+        </div>
+        
+        <p>
+            The system relies a lot on URLs these will be the main entries to the framework. <br/>
+            When going to a URL the system will first check if this is a static file, if so it will return this file.
+            <br/> If not it will traverse the framework.
+        </p>
+        
+        <p>
+            The urls of the system have a fixed setting. <br/>
+            URLs are build up as follows (this is not for public files) <code>http://example.com/&lt;app&gt;/&lt;component&gt;/&lt;view&gt;</code> where view is optional.
+            <br/> If new view is given the system will use the plural of the component name for the view. (unless it is overridden in the dispatcher)
+        </p>
+        
+        <p>
+            I will give some examples: <br/><br/>
+            
+            <code>http://example.com/demo/foo</code> this url will go to the demo application and will run the component foo with the view foos. <br/>
+            <code>http://example.com/demo/foo/bar</code> will go to the same application but will go to the view bar.
+        </p>
+    </div>
+</div>

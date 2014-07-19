@@ -1,0 +1,187 @@
+---
+title: 5. Controller
+permalink: /tutorial/controller.html
+category: tutorial
+layout: default
+---
+        
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>Controller</h1>
+        </div>
+
+        <p>
+            The controller is the object which responds to the user action. <br/>
+            Because we use BREAD (Browse, Read, Edit, Add and Delete) we can also use these actions for behaviors. <br/>
+            Also we can override these actions (highly disadvised). Also you can add static states in the controller if they are dependent on other data.
+            <br/> Also I will show an example of binding behaviors (can also be done by component config).
+        </p>
+
+        <p>
+            Below I will give an example on how to bind static state data (used for security) and set a few behaviors.
+        </p>
+    </div>
+</div>
+        
+<div class="row">
+    <div class="col-md-6">
+        <p>
+            Object override:
+        </p>
+        
+        {% highlight javascript %}
+var Controller  = require('raddish').Controller;
+var util        = require('util');
+
+function DemoController(config) {
+    Controller.call(this, config);
+}
+
+util.inherits(DemoController, Controller);
+
+DemoController.prototype.initialize = function(config) {
+    // When a behavior is in this component you can just give the behavior name
+    // but when it is in another component you must give the full identifier.
+    config.behaviors = {
+        'uploadable': {},
+        'com://demo/menu.controller.behavior.itemable': {}
+    };
+
+    return Controller.prototype.initialize.call(this, config);
+};
+
+DemoController.prototype.getRequest = function() {
+    var request = Controller.prototype.getRequest.call(this);
+
+    request.id = 11;
+
+    return request;
+};
+
+module.exports = DemoController;
+        {% endhighlight %}
+    </div>
+    
+    <div class="col-md-6">
+        <p>
+            The behaviors can also be set in Component config:
+        </p>
+
+        {% highlight json %}
+{
+    "controller": {
+        "demo": {
+            "behaviors": {
+                "uploadable": {},
+                "com://demo.menu.controller.behavior.itemable": {}
+            }
+        }
+    }
+}
+        {% endhighlight %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <p>
+            In this example no matter what you will only get the item with id 11. Even when another id is given.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Permissions</h2>
+        <p>
+            Next to the controller we also have permissions. <br/>
+            This as well is based on BREAD. And on these functions you can add your own permissions check. <br/>
+            By default the get requests are allowed, and on post/ delete requests you must be authenticated. <br/>
+        </p>
+
+        <p>
+            When you want to override the permissions for a specific view you can give the file the name of the controller.
+            <br/> When the view you visit is demo the controller demo is called and so the permissions file with the same name.
+            <br/> The function names are: canBrowse, canRead, canEdit, etc.
+            <br/> Below an example of the canEdit permission. Ofcourse you can change it to whatever you need.
+        </p>
+
+        {% highlight javascript %}
+var Permission  = require('raddish').Permission;
+var util        = require('util');
+
+function DemoPermission(config) {
+    Permissions.call(this, config);
+}
+
+util.inherits(DemoPermission, Permission);
+
+DemoPermission.prototype.canEdit = function(context) {
+    if(context.auth) {
+        if(context.auth.username && context.auth.password) {
+            return Promise.resolve(true);
+        }
+    }
+
+    return Promise.resolve(false);
+};
+
+module.exports = DemoPermission;
+        {% endhighlight %}
+
+        <p>
+            The following example shows that only users which are logged can edit, else a <code>401</code> error will be returned.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Behaviors</h2>
+        <p>
+            Behaviors are powered by DCI (Data Context Interaction) and will also follow this purpose. <br/>
+            Behavior functions are as follows: onBeforeBrowse, onAfterBrowse, onBeforeRead, onAfterRead, etc.
+        </p>
+
+        <p>
+            You can add your own functions in these behaviors. In the following example I will show a uploadable behavior.
+        </p>
+
+        {% highlight javascript %}
+var ControllerBehavior  = require('raddish').ContollerBehavior;
+var util                = require('util');
+var fs                  = require('fs');
+
+function UploadableBehavior(config) {
+    ControllerBehavior.call(this, config);
+};
+
+util.inherits(UploadableBehavior, ControllerBehaviors);
+
+UploadableBehavior.prototype.onBeforeAdd = function(context) {
+    var files   = context.data.files;
+    var path    = '/var/tmp';           // Path to write the files to.
+    
+    for(var index in files) {
+        var file = files[index];
+        
+        fs.writeFileSync(path + '/' + file.name, 'Hello World');
+    }
+    
+    return Promise.resolve(context);
+};
+
+module.exports = UploadableBehavior;
+        {% endhighlight %}
+
+        <p>
+            This ofcourse is one example, but you can do other functions as well. <br/>
+            Also this behavior is reusable across the entire system. Wherever you need the uploadable behavior you can include it.
+        </p>
+
+        <p>
+            In the following example we will show the model object.
+        </p>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+---
+title: 4. Dispatcher
+permalink: /tutorial/dispatcher.html
+category: tutorial
+layout: default
+---
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>Dispatcher</h1>
+        </div>
+
+        <p>
+            The dispatcher handles request and response. <br/>
+            This is the first place where the request and response come together.
+        </p>
+
+        <p>
+            This is also the place where the system checks to where the system has to go next. <br/>
+            The system checks the request and when a view parameter is found it will get the controller for this request. <br/>
+            When none is found the system will check for the same controller as the component name.
+        </p>
+
+        <p>
+            Althought it is possible to override this behavior, this can be done in two different ways. I will show them below
+        </p>
+    </div>
+</div>
+        
+<div class="row">
+    <div class="col-md-6">
+        <p>
+            Object override:
+        </p>
+        
+        {% highlight javascript %}
+var Dispatcher  = require('raddish').Dispatcher;
+var util        = require('util');
+
+function DemoDispatcher(config) {
+    Dispatcher.call(this, config);
+};
+
+util.inherits(DemoDispatcher, Dispatcher);
+
+DemoDispatcher.prototype.initialize = function(config) {
+    config.controller = 'foo';
+
+    return Dispatcher.prototype.initialize.call(this, config);
+};
+
+module.exports = DemoDispatcher;
+        {% endhighlight %}
+    </div>
+    
+    <div class="col-md-6">
+        <p>
+            Component config:
+        </p>
+        
+        {% highlight json %}
+{
+    "dispatcher": {
+        "controller": "foo"
+    }
+}
+        {% endhighlight %}
+    </div>
+</div>

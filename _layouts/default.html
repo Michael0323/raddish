@@ -7,15 +7,15 @@
         <title>{{ page.title }}</title>
 
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/custom.css">
-	    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/highlight.css">
-	    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/bootstrapValidator.min.css">
+        <link rel="stylesheet" href="{{ site.baseurl }}assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ site.baseurl }}assets/css/custom.css">
+	    <link rel="stylesheet" href="{{ site.baseurl }}assets/css/highlight.css">
+	    <link rel="stylesheet" href="{{ site.baseurl }}assets/css/bootstrapValidator.min.css">
 
 	    <!--Custom JS -->
-	    <script src="{{ site.baseurl }}/assets/js/jquery-2.1.0.js"></script>
-	    <script src="{{ site.baseurl }}/assets/js/bootstrap.min.js"></script>
-	    <script src="{{ site.baseurl }}/assets/js/bootstrapValidator.min.js"></script>
+	    <script src="{{ site.baseurl }}assets/js/jquery-2.1.0.js"></script>
+	    <script src="{{ site.baseurl }}assets/js/bootstrap.min.js"></script>
+	    <script src="{{ site.baseurl }}assets/js/bootstrapValidator.min.js"></script>
 
 	    <script type="text/javascript">
 		    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -39,14 +39,29 @@
 				        <span class="icon-bar"></span>
 			        </button>
 			        <div class="navbar-brand">
-				        {{site.name}}
+                        <a href="/">
+                            <img src="/assets/images/logo.svg" alt=""/>
+                        </a>
 			        </div>
 		        </div>
 
 		        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			        <ul class="nav navbar-nav">
-				        <li {% if page.url == '/index.html' %} class="active" {% endif %}><a href="{{ site.baseurl }}/">Home</a></li>
-                        <li {% if page.url == '/features.html' %} class="active" {% endif %}><a href="{{ site.baseurl }}/features.html">Features</a></li>
+                        <li {% if page.url == '/features.html' %} class="active" {% endif %}><a href="/features.html">Features</a></li>
+                        <li {% if page.url contains 'basics' %} class="active dropdown" {% else %} class="dropdown" {% endif %}>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Basics
+                                <span class="caret"></span>
+                            </a>
+    
+                            <ul class="dropdown-menu">
+                                {% for post in site.categories.basics reversed %}
+                                <li>
+                                    <a href="{{ post.url }}">{{ post.title }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
 				        <li {% if page.url contains 'tutorial' %} class="active dropdown" {% else %} class="dropdown" {% endif %}>
 				            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 					            Tutorial
@@ -56,15 +71,29 @@
 				            <ul class="dropdown-menu">
 					            {% for post in site.categories.tutorial reversed %}
 					                <li>
-					                    <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+					                    <a href="{{ post.url }}">{{ post.title }}</a>
 					                </li>
 					            {% endfor %}
 				            </ul>
 				        </li>
+                        <!--<li {% if page.url contains 'advanced' %} class="active dropdown" {% else %} class="dropdown" {% endif %}>-->
+                            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+                                <!--Advanced-->
+                                <!--<span class="caret"></span>-->
+                            <!--</a>-->
+    <!---->
+                            <!--<ul class="dropdown-menu">-->
+                                <!--{% for post in site.categories.advanced reversed %}-->
+                                <!--<li>-->
+                                    <!--<a href="{{ post.url }}">{{ post.title }}</a>-->
+                                <!--</li>-->
+                                <!--{% endfor %}-->
+                            <!--</ul>-->
+                        <!--</li>-->
 				        <li {% if page.url contains 'changelog' %} class="active" {% endif %}>
-				            <a href="{{site.baseurl}}/changelog/">Changelog</a>
+				            <a href="/changelog/">Changelog</a>
 				        </li>
-                        <li {% if page.url == '/support.html' %} class="active" {% endif %}><a href="{{ site.baseurl }}/support.html">Support</a></li>
+                        <li {% if page.url == '/support.html' %} class="active" {% endif %}><a href="/support.html">Support</a></li>
 			        </ul>
 	            </div>
 	        </div>
@@ -76,7 +105,8 @@
     </body>
 	<footer>
 		<p class="text-center">
-			Code licensed under <a href="http://www.gnu.org/licenses/gpl-3.0.html">GPLv3</a>, documentation under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>
+			Code licensed under <a href="http://opensource.org/licenses/MIT" target="_blank">MIT</a>, documentation under <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a>
+            <br/> Logo by <a href="http://karasu-d.nl/" target="_blank">Karasu Design</a>.
 		</p>
 	</footer>
 </html>

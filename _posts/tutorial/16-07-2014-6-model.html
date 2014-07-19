@@ -1,0 +1,100 @@
+---
+title: 6. Model
+permalink: /tutorial/model.html
+category: tutorial
+layout: default
+---
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>Model</h1>
+        </div>
+        
+        <p>
+            The model is responsible of setting the states and building the select queries as well for returning the requested data. <br/>
+            Also as a minor notice, the model does not support component config. 
+        </p>
+        
+        <p>
+            It is possible to set extra states in the model, by default the unique columns of the table will be set automatically.
+            <br/> Also the filter of the column will be applied automatically so you don't have to worry about SQL Injections.
+            <br/> And to make life even more easy the query builder is for all the database adapters the same. It can't go wrong ;)
+        </p>
+        
+        <p>
+            Below I will show an example for the model, <br/>
+            Here states will be added and a filter will applied. <br/>
+            The default enabled states are: limit, offset, sort and direction. These will be used automatically.
+        </p>
+        
+        <p>
+            There are a few buildQuery functions in which you can put your code.
+        </p>
+
+        <ul>
+            <li>buildQueryColumns</li>
+            <li>buildQueryFrom</li>
+            <li>buildQueryJoins</li>
+            <li>buildQueryWhere</li>
+            <li>buildQueryGroup</li>
+            <li>buildQueryHaving</li>
+            <li>buildQueryOrder</li>
+            <li>buildQueryLimit</li>
+        </ul>
+
+        <p class="text-info">
+            Keep the limitations of the used database in mind, MongoDB does not support Joins/ Having queries.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        {% highlight javascript %}
+var Model   = require('raddish').Model;
+var util    = require('util');
+        
+function DemoModel(config) {
+    Model.call(this, config);
+        
+    // Set two states categry_id and user_id, both are integers.
+    this.states
+        .insert('category_id'   , 'int')
+        .insert('user_id'       , 'int');
+}
+        
+util.inherits(DemoModel, Model);
+        
+DemoModel.prototype.buildQueryWhere = function(query, self) {
+    var states = self.states;
+        
+    if(states.get('category_id')) {
+        query.where('category_id', '=', states.get('category_id'));
+    }
+
+    if(states.get('user_id')) {
+        query.where('user_id', '=', states.get('user_id'));
+    }
+        
+    // return the parent call for further use.
+    return Model.prototype.buildQueryWhere.call(this, query, self);
+};
+        
+module.exports = DemoModel;
+        {% endhighlight %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <p>
+            In the above example we added two states filtered as integer. <br/>
+            Then in the buildQueryWhere we added a where statement to the query. Which will then automatically be passed to the table to receive the result.
+        </p>
+        
+        <p>
+            In the following tutorial we will show the table object.
+        </p>
+    </div>
+</div>

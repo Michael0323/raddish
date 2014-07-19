@@ -1,0 +1,164 @@
+---
+title: 7. Table
+permalink: /tutorial/table.html
+category: tutorial
+layout: default
+---
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>Table</h1>
+        </div>
+        
+        <p>
+            The table is responsible for all the data manipulations in the database. <br/>
+            Also the table has a direct connection to the database which will execute the commands.
+        </p>
+        
+        <p>
+            The table has a few key variables.
+        </p>
+        
+        <dl>
+            <dt>identity_column</dt>
+            <dd>
+                This is the column treated as the identity column of the table. <br/>
+                By default the table object will search for the identity column and register it, <br/>
+                but this behavior can be overridden by adding this value.
+            </dd>
+
+            <br/>
+            <dt>name</dt>
+            <dd>
+                This is the name of the table to use. <br/>
+                By default the system uses the table name created by using the package and name from the identifiers like: <code>foo_bar</code>
+                <br/> When the variable is overridden it will use this as the table name.
+            </dd>
+
+            <br/>
+            <dt>db</dt>
+            <dd>
+                This is the name of the database the table has to connect to. <br/>
+                By default the <code>default</code> database is used, but when overridden it will use that database connection,
+                <br/> keep in mind that this connection has to be configured in the <code>config.json</code> file.
+            </dd>
+        </dl>
+        
+        <p>
+            In the following example I will show you how you can override these variables and how to add behaviors.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <p>
+            Object override:
+        </p>
+        
+        {% highlight javascript %}
+var Table   = require('raddish').Table;
+var util    = require('util');
+        
+function DemoTable(config) {
+    Table.call(this, config);
+}
+        
+util.inherits(DemoTable, Table);
+        
+DemoTable.prototype.initialize = function(config) {
+    // Set the database, this database must be defined in the config of raddish.
+    config.db = 'mongo';
+        
+    // Set the behaviors
+    config.behaviors = {
+        'sockatable': {},
+        'com://demo/menu.database.table.behavior.itemable': {}
+    };
+        
+    // Set the table name to select.
+    config.name = 'foo';
+        
+    // Set the identity_column
+    config.identity_column = '_id';
+        
+    // Return the parent initialize function.
+    return Table.prototype.initialize.call(this, config);
+};
+    
+module.exports = DemoTable;
+        {% endhighlight %}
+    </div>
+    
+    <div class="col-md-6">
+        <p>
+            Component config:
+        </p>
+        
+        {% highlight json %}
+{
+    "table": {
+        "demo": {
+            "db": "mongo",
+            "name": "foo",
+            "identity_column": "_id",
+            "behaviors": {
+                "socketable": {},
+                "com://demo/menu.database.table.behaior.itemable": {}
+            }
+        }
+    }
+}
+        {% endhighlight %}
+    </div>
+</div>
+        
+<div class="row">
+    <div class="col-md-12">
+        <h2>Behaviors</h2>
+    
+        <p>
+            Here the behaviors are almost the same as in the controller. <br/>
+            Only the actions to bind on are different, in the table we have the following actions: <br/>
+            Select, Insert, Update and Delete on the before and after functions we can bind extra functions.
+        </p>
+        <p>
+            Below I will show an example behavior. <br/>
+            This example will set the created_on column (if exists) with the date of creation.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        {% highlight javascript %}
+var TableBehavior   = require('raddish').TableBehavior;
+var util            = require('util');
+        
+function CreatableBehavior(config) {
+    TableBehavior.call(this, config);
+}
+        
+util.inherits(CreatableBehavior, TableBehavior);
+
+CreatableBehavior.prototype.onBeforeInsert = function(context) {
+    if(context.data.created_on) {
+        context.data.created_on = new Date().toISOString();
+    }
+        
+    return context;
+};
+        
+module.exports = CreatableBehavior;
+        {% endhighlight %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <p>
+            In the next tutorial we will cover the Rowset object.
+        </p>
+    </div>
+</div>

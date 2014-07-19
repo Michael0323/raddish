@@ -1,0 +1,44 @@
+---
+title: 3. Application
+permalink: /tutorial/application.html
+category: tutorial
+layout: default
+---
+
+<div class="page-header">
+    <h1>Application</h1>
+</div>
+        
+<p>
+    In the previous tutorial we created the <code>package.json</code>, <code>config.json</code> and <code>app.js</code>
+    <br/> Also we registed the application to the directory <code>app/demo</code> relative to the <code>app.js</code> in the root of the project. 
+    <br/> so in this tutorial we will create the demo app file. 
+</p>
+        
+{% highlight javascript %}
+var Application = require('raddish').Application;
+var util        = require('util');
+    
+function DemoApp() {
+    Application.call(this);                     // Call the parent object.
+    
+    this.setConfig({
+        component: __dirname + '/components',   // Set the directory for the components. (required)
+        config: __dirname + '/config'           // Set the directory for the config files. (used for component config, optional)
+    });
+};
+    
+util.inherits(DemoApp, Application);
+    
+module.exports = DemoApp;
+{% endhighlight %}
+        
+<p>
+    This is a complete component. We have said to the application where it can find the config files (if set) and the components.
+    <br/> Now the application is registred and raddish can be started.
+</p>
+        
+<p>
+    For the following examples please read the <a href="/basics/file-structure.html">file structure</a> information. <br/>
+    In the following tutorials we will give a small explanation followed by an example.  
+</p>

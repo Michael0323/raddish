@@ -1,0 +1,51 @@
+---
+title: 4. File Structure
+permalink: /basics/file-structure.html
+category: basics
+layout: default
+---
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>File Structure</h1>
+        </div>
+        
+        <p>
+            Below I will show the complete file structure for a component, ofcourse when there are no file overrides the folders don't have to be created.
+            <br/> It is ofcourse possible to add own custom folders if needed. Also the config.json is optional and used for component config.
+        </p>
+        
+        <p>
+            The component_name.js must have the same name as the component and is the file which is first called when requesting a component.
+        </p>
+        
+        <p class="text-info">
+            When following the tutorial be sure to place the controllers in the controller folder, <br/>
+            models in the model folder etc.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+{% highlight bash %}
+<component_name>
+├── controller/
+│   └── permission/
+│   └── behavior/
+├── database/
+│   ├── adapter/
+│   ├── row/
+│   ├── rowset/
+│   └── table/
+│       └── behavior/
+├── dispatcher/
+│   └── authenticator/
+├── model/
+├── view/
+├── <component_name>.js
+└── config.json
+{% endhighlight %}
+    </div>
+</div>

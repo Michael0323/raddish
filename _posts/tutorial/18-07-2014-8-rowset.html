@@ -1,0 +1,69 @@
+---
+title: 8. Rowset
+permalink: /tutorial/rowset.html
+category: tutorial
+layout: default
+---
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>Rowset</h1>
+        </div>
+        
+        <p>
+            The rowset is an object which holds a collection of row objects. <br/>
+            You can add extra functions to this object to give extra functionality.
+        </p>
+        
+        <p>
+            Below I will show a function which will add a category to all the columns when a category_id is found. <br/>
+            However this can better be set in a table behavior.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        {% highlight javascript %}
+var Rowset  = require('raddish').Rowset;
+var util    = require('util');
+        
+function DemoRowset(config) {
+    Rowset.call(this, config);
+}
+        
+util.inherits(DemoRowset, Rowset);
+        
+DemoRowset.prototype.setCategory = function() {
+    var self = this;
+        
+    for(var index in this.rows) {
+        var row = this.row[index];
+        
+        if(row.getData().category_id) {
+            this.getObject('com://demo/foo.model.category')
+                .then(function(model) {
+                    return model.set('id', row.getData().category_id).getItem();
+                })
+                .then(function(category) {
+                    row.category = category;
+                });;
+        }
+    }
+        
+    return this.rows;
+};
+        
+module.exports = DemoRowset;
+        {% endhighlight %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <p>
+            In the next tutorial we will cover the row object.
+        </p>
+    </div>
+</div>

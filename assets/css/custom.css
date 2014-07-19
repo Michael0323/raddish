@@ -1,6 +1,12 @@
 body {
 	margin-top: 60px;
-	margin-bottom: 65px;
+	margin-bottom: 85px;
+}
+
+@media(max-width: 480px) {
+    body {
+        margin-bottom: 105px;
+    }
 }
 
 footer {
@@ -8,7 +14,7 @@ footer {
 	bottom: 0px;
 	width: 100%;
 	background: #FFFFFF;
-	border-top: 2px solid #E32454;
+	border-top: 2px solid #e91c28;
 	padding: 15px 0px;
 }
 
@@ -16,16 +22,15 @@ footer {
 	margin-bottom: 0px;
 	background: #ffffff;
 	border-radius: 0px;
-	border-bottom: 2px solid #E32454;
+	border-bottom: 2px solid #e91c28;
 }
 
 .page-header {
 	margin-top: 0px;
 }
 
-.navbar .navbar-brand,
-.navbar .navbar-brand:hover {
-	color: #008000;
+.navbar .navbar-brand {
+	padding: 5px 15px;
 }
 
 .override-nav {
@@ -38,5 +43,5 @@ footer {
 
 .override-nav li a.active {
 	padding-left: 10px;
-	border-left: 2px solid #E32454;
+	border-left: 2px solid #e91c28;
 }

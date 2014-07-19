@@ -1,0 +1,91 @@
+---
+title: 2. Setup
+permalink: /tutorial/setup.html
+category: tutorial
+layout: default
+---
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>Setup</h1>
+        </div>
+
+        <p>
+            The first thing we will do is setup the the system. <br/>
+            For development purposes we will use a package called Nodemon. This package will restart your system whenever you have created a change.
+            <br/> So first we will create a <code>package.json</code>.
+            <br/> This could look like this:
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        {% highlight json %}
+        {
+            "dependencies": {
+                "raddish": "2.0.0",
+                "nodemon": "1.0.17"
+            },
+            "scripts": {
+                "start": "nodemon app.js"
+            }
+        }
+        {% endhighlight %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p>
+            In this <code>package.json</code> we have said that that when the command <code>npm start</code> is executed it will start app.js with nodemon.
+            <br/>Ofcourse if you want you can add more scripts or dependencies if you want. <br/>
+            After we created the <code>package.json</code> we will issue the <code>npm install</code> command to download all the dependencies. This might take a while.
+            <br/> When this is done you can continue.
+        </p>
+
+        <p>
+            Next step is the <code>config.json</code> this file is used by Raddish and will hold the basic config. <br/>
+            In this example I have shown the minimum requirements, for more information go to: <a href="/basics/config.html">config.json</a><br/>
+            The config might look like this:
+        </p>
+    </div>
+</div>
+        
+{% highlight json %}
+{
+    "db": {
+        "default": {
+            "host": "localhost",
+            "port": 3306,
+            "user": "root",
+            "password": "root",
+            "database": "demo",
+            "prefix": "demo_"
+        }
+    },
+    "format": "json",
+    "port": 1337,
+    "public": "/public"
+}
+{% endhighlight %}
+        
+<p>
+    Next we will create a file called <code>app.js</code> this is our main entry point of the framework. <br/>
+    In this file we will set the config, register the applications and start the framework. <br/>
+    The file can look like this:
+</p>
+        
+{% highlight javascript %}
+var raddish = require('raddish');               // Require the raddish module.
+    
+raddish.setConfig('./config.json');             // This function accepts a string or an object for the config.
+raddish.setApplication('demo', 'app/demo/app'); // Here we will register the demo application.
+raddish.checkUpdate();                          // This function will automatically check for updates and let you know.
+    
+raddish.start();                                // Start raddish.
+{% endhighlight %}
+        
+<p>
+    This covers the setup. <br/>
+    On the next page we will create the application which we registered in the <code>app.js</code> file.
+</p>

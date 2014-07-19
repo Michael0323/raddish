@@ -2,4 +2,4 @@ name: Raddish Docs
 markdown: redcarpetcd
 highlighter: pygments
 pygments: true
-baseurl: /raddish
+baseurl: /

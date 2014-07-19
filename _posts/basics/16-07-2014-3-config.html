@@ -1,0 +1,145 @@
+---
+title: 3. Config
+permalink: /basics/config.html
+category: basics
+layout: default
+---
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>Config</h1>
+        </div>
+        
+        <p>
+            Raddish is config based and everything will come from a config file. <br/>
+            In the config file you register the databases, ssl settings and a lot more. <br/>
+            In this section I will explain the config file in total detail.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+{% highlight json %}
+{
+    "db": {
+        "default": {
+            "host": "localhost",
+            "port": 3306,
+            "user": "root",
+            "password": "root",
+            "database": "demo",
+            "prefix": "demo_"
+        }
+    },
+    "ssl": {
+        "key": "./ssl.key",
+        "cert": "./ss.crt"
+    },
+    "threads": {
+        "maxThreads": 16,
+        "maxThreshold": 50,
+        "minThreshold": 10,
+        "interval": 500
+    },
+    "socketio": {
+        "port": 1338
+    },
+    "plugins": "/plugins",
+    "cache": true,
+    "gzip": true,
+    "format": "json",
+    "port": 1337,
+    "public": "/public"
+}
+{% endhighlight %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <dl>
+            <dt>db</dt>
+            <dd>
+                This are the database connections. <br/>
+                The connection <code>default</code> is required. <br/>
+                
+                For the details <code>host</code>, <code>user</code>, <code>password</code> and <code>database</code> are required, <code>prefix</code> and <code>port</code> are optional. <br/>
+                When you are using another <code>port</code> than default please add port. <br/>
+                Where as <code>prefix</code> will give an extra layer of security.
+            </dd>
+
+            <br/>
+            <dt>ssl</dt>
+            <dd>
+                This setting can only be false or an object. <br/>
+                When false (or not defined) ssl will not be started. <br/>
+                When it is an object <code>key</code> and <code>cert</code> are required and must point to the of the ssl key and ssl certificate files.
+            </dd>
+
+            <br/>
+            <dt>threads</dt>
+            <dd>
+                Can be true, false, not defined or an object, <br/>
+                when true it will start threads with the default values. <br/>
+                When an object it will override the default values with your custom values, displayed here are the default values.
+
+                <br/><br/> The <code>maxThreshold</code> and <code>minThreshold</code> is the amount of usage a process might have before an extra thread is started or removed.
+                <br/> The <code>interval</code> is the interval in millisecond when the system must check for process usage.
+            </dd>
+
+            <br/>
+            <dt>socketio</dt>
+            <dd>
+                The value can be true, an object, false or not defined. <br/><br/>
+                
+                When true it will start sockets on port 1338, <br/>
+                when an object you can manually set the <code>port</code> to start on.
+            </dd>
+
+            <br/>
+            <dt>plugins</dt>
+            <dd>
+                Specify the path to the plugins directory. <br/>
+                When not defined plugins will not be used in the system.
+            </dd>
+
+            <br/>
+            <dt>cache</dt>
+            <dd>
+                This value can be true, false or not defined. <br/>
+                When true it will cache the initialized objects resulting in a huge speed advantage. <br/>
+                When false or not defined the system will not cache any objects.
+            </dd>
+            
+            <br/>
+            <dt>gzip</dt>
+            <dd>
+                Enable gzip compression or not. <br/>
+                When the client doesn't support gzip compression the result isn't compressed.
+            </dd>
+            
+            <br/>
+            <dt>format</dt>
+            <dd>
+                This value is required. <br/>
+                Specify the default returned value.
+            </dd>
+            
+            <br/>
+            <dt>port</dt>
+            <dd>
+                This value is required. <br/>
+                Specify on which port the system starts.
+            </dd>
+            
+            <br/>
+            <dt>public</dt>
+            <dd>
+                This value is required. <br/>
+                Specify the folder where the public files are stored.
+            </dd>
+        </dl>
+    </div>
+</div>

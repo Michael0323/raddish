@@ -1,0 +1,63 @@
+---
+title: 9. Row
+permalink: /tutorial/row.html
+category: tutorial
+layout: default
+---
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>
+                Row
+            </h1>
+        </div>
+        
+        <p>
+            In the row object the actual data resides. This object can have extra functions. <br/>
+            It is possible to extend the row object on the load, save and delete functions but this can better be done in a behavior.
+        </p>
+        <p>
+            In the following example I will show how we get the category of a row, if category_id is set. <br/>
+            We will do this using Promises.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        {% highlight javascript %}
+var Row     = require('raddish').Row;
+var util    = require('util');
+        
+function DemoRow(config) {
+    Row.call(this, config);
+}
+        
+util.inherits(DemoRow, Row);
+        
+DemoRow.prototype.getCategory = function() {
+    var self = this;
+        
+    if(this.data.category_id) {
+        return this.getObject('com://demo/foo.model.category')
+            .then(function(model) {
+                return model.set('id', self.data.category_id).getItem();
+            });
+    } else {
+        return {};
+    }
+};
+        
+module.exports = DemoRow;
+        {% endhighlight %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <p>
+            In the next tutorial we will cover the view object.
+        </p>
+    </div>
+</div>
