@@ -1,0 +1,38 @@
+---
+title: 3. Component File
+permalink: /tutorial/component-file.html
+category: tutorial
+layout: default
+---
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>Component File</h1>
+        </div>
+        
+        <p>
+            To successfully start you component and to suppress the <code>404 component not found.</code> Error you have to create a file
+            <br/> in the root you your component with the same name as your component. This is also done to correctly start your component.
+        </p>
+        
+        <p>
+            See an example below.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+{% highlight javascript %}
+function DemoComponent(request, response) {
+    ObjectManager.get('com://demo/demo.dispatcher.http')
+        .then(function(dispatcher) {
+            dispatcher.dispatch(request, response);
+        });
+}
+        
+module.exports = DemoComponent;        
+{% endhighlight %{
+    </div>
+</div>
