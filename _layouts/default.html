@@ -53,31 +53,35 @@
 
 		        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			        <ul class="nav navbar-nav" itemscope itemtype="http://schema.org/SiteNavigationElement">
-                        <li itemprop="url" {% if page.url == '/features.html' %} class="active" {% endif %}><a href="/features.html"  title="features" itemprop="name">Features</a></li>
-                        <li itemprop="url" {% if page.url contains 'basics' %} class="active dropdown" {% else %} class="dropdown" {% endif %}>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="basics" itemprop="name">
-                                Basics
+                        <li {% if page.url == '/features.html' %} class="active" {% endif %}><a href="/features.html" itemprop="url"><span itemprop="url">Features</span></a></li>
+                        <li {% if page.url contains 'basics' %} class="active dropdown" {% else %} class="dropdown" {% endif %}>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" itemprop="url" >
+                                <span itemprop="name">Basics</span>
                                 <span class="caret"></span>
                             </a>
     
                             <ul class="dropdown-menu">
                                 {% for post in site.categories.basics reversed %}
-                                <li itemprop="url">
-                                    <a href="{{ post.url }}" title="{{post.title}}" itemprop="name">{{ post.title }}</a>
+                                <li>
+                                    <a href="{{ post.url }}" itemprop="url">
+                                        <span itemprop="name">{{ post.title }}</span>
+                                    </a>
                                 </li>
                                 {% endfor %}
                             </ul>
                         </li>
-				        <li itemprop="url" {% if page.url contains 'tutorial' %} class="active dropdown" {% else %} class="dropdown" {% endif %}>
-				            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="tutorial" itemprop="name">
-					            Tutorial
+				        <li {% if page.url contains 'tutorial' %} class="active dropdown" {% else %} class="dropdown" {% endif %}>
+				            <a href="#" class="dropdown-toggle" data-toggle="dropdown" itemprop="name">
+					            <span  itemprop="url">Tutorial</span>
 					            <span class="caret"></span>
 				            </a>
 
 				            <ul class="dropdown-menu">
 					            {% for post in site.categories.tutorial reversed %}
-					                <li itemprop="url">
-					                    <a href="{{ post.url }}" title="{{post.title}}" itemprop="name">{{ post.title }}</a>
+					                <li>
+					                    <a href="{{ post.url }}" itemprop="url">
+                                            <span itemprop="name">{{ post.title }}</span>
+                                        </a>
 					                </li>
 					            {% endfor %}
 				            </ul>
@@ -96,11 +100,11 @@
                                 <!--{% endfor %}-->
                             <!--</ul>-->
                         <!--</li>-->
-				        <li itemprop="url" {% if page.url contains 'changelog' %} class="active" {% endif %}>
-				            <a href="/changelog.html" title="changelog" itemprop="name">Changelog</a>
+				        <li {% if page.url contains 'changelog' %} class="active" {% endif %}>
+				            <a href="/changelog.html"itemprop="url"><span itemprop="name">Changelog</span></a>
 				        </li>
-                        <li itemprop="url" {% if page.url == '/support.html' %} class="active" {% endif %}>
-                            <a href="/support.html" title="support" itemprop="name">Support</a>
+                        <li {% if page.url == '/support.html' %} class="active" {% endif %}>
+                            <a href="/support.html" itemprop="url"><span itemprop="name">Support</span></a>
                         </li>
 			        </ul>
 	            </div>
