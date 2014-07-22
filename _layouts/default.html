@@ -34,8 +34,8 @@
 
         </script>
     </head>
-    <body>
-        <div class="navbar navbar-default navbar-fixed-top">
+    <body itemscope itemtype="http://schema.org/WebPage">
+        <div class="navbar navbar-default navbar-fixed-top" itemscope itemtype="http://schema.org/WPHeader">
 	        <div class="container">
 		        <div class="navbar-header">
 			        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -52,32 +52,32 @@
 		        </div>
 
 		        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			        <ul class="nav navbar-nav">
-                        <li {% if page.url == '/features.html' %} class="active" {% endif %}><a href="/features.html">Features</a></li>
-                        <li {% if page.url contains 'basics' %} class="active dropdown" {% else %} class="dropdown" {% endif %}>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			        <ul class="nav navbar-nav" itemscope itemtype="http://schema.org/SiteNavigationElement">
+                        <li itemprop="url" {% if page.url == '/features.html' %} class="active" {% endif %}><a href="/features.html"  title="features" itemprop="name">Features</a></li>
+                        <li itemprop="url" {% if page.url contains 'basics' %} class="active dropdown" {% else %} class="dropdown" {% endif %}>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="basics" itemprop="name">
                                 Basics
                                 <span class="caret"></span>
                             </a>
     
                             <ul class="dropdown-menu">
                                 {% for post in site.categories.basics reversed %}
-                                <li>
-                                    <a href="{{ post.url }}">{{ post.title }}</a>
+                                <li itemprop="url">
+                                    <a href="{{ post.url }}" title="{{post.title}}" itemprop="name">{{ post.title }}</a>
                                 </li>
                                 {% endfor %}
                             </ul>
                         </li>
-				        <li {% if page.url contains 'tutorial' %} class="active dropdown" {% else %} class="dropdown" {% endif %}>
-				            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				        <li itemprop="url" {% if page.url contains 'tutorial' %} class="active dropdown" {% else %} class="dropdown" {% endif %}>
+				            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="tutorial" itemprop="name">
 					            Tutorial
 					            <span class="caret"></span>
 				            </a>
 
 				            <ul class="dropdown-menu">
 					            {% for post in site.categories.tutorial reversed %}
-					                <li>
-					                    <a href="{{ post.url }}">{{ post.title }}</a>
+					                <li itemprop="url">
+					                    <a href="{{ post.url }}" title="{{post.title}}" itemprop="name">{{ post.title }}</a>
 					                </li>
 					            {% endfor %}
 				            </ul>
@@ -96,10 +96,12 @@
                                 <!--{% endfor %}-->
                             <!--</ul>-->
                         <!--</li>-->
-				        <li {% if page.url contains 'changelog' %} class="active" {% endif %}>
-				            <a href="/changelog.html">Changelog</a>
+				        <li itemprop="url" {% if page.url contains 'changelog' %} class="active" {% endif %}>
+				            <a href="/changelog.html" title="changelog" itemprop="name">Changelog</a>
 				        </li>
-                        <li {% if page.url == '/support.html' %} class="active" {% endif %}><a href="/support.html">Support</a></li>
+                        <li itemprop="url" {% if page.url == '/support.html' %} class="active" {% endif %}>
+                            <a href="/support.html" title="support" itemprop="name">Support</a>
+                        </li>
 			        </ul>
 	            </div>
 	        </div>
@@ -109,7 +111,7 @@
 	        {{content}}
         </div>
     </body>
-	<footer>
+	<footer itemscope itemtype="http://schema.org/WPFooter">
 		<p class="text-center">
 			Code licensed under <a href="http://opensource.org/licenses/MIT" target="_blank">MIT</a>, documentation under <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a>
             <br/> Logo by <a href="http://karasu-d.nl/" target="_blank">Karasu Design</a>.
