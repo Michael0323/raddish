@@ -12,7 +12,7 @@ layout: nil
     </url>    
     {% for page in site.html_pages %}
         <url>
-            <loc>http://getbootstrap.com{{ page.url }}</loc>
+            <loc>http://getraddish.com{{ page.url }}</loc>
             <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
             <changefreq>weekly</changefreq>
             <priority>0.7</priority>
@@ -21,7 +21,7 @@ layout: nil
     {% for page in site.posts %}
         {% if page.category != 'changelog' %}
             <url>
-                <loc>http://getbootstrap.com{{ page.url }}</loc>
+                <loc>http://getraddish.com{{ page.url }}</loc>
                 <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.7</priority>
