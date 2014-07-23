@@ -4,10 +4,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        {% if page.keywords %}
-        <meta name="keywords" content="{{page.keywords}}">
-        {% endif %}
+        {% if page.keywords %}<meta name="keywords" content="{{page.keywords}}">{% endif %}
+        {% if page.description %}<meta name="description" content="{{page.description}}">{% endif %}
         
         <title>{{ page.title }} - Raddish</title>
 
@@ -31,7 +29,6 @@
             ga('create', 'UA-32550863-5', 'auto');
             ga('require', 'displayfeatures');
             ga('send', 'pageview');
-
         </script>
     </head>
     <body itemscope itemtype="http://schema.org/WebPage">

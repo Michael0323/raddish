@@ -33,6 +33,17 @@ layout: default
             "prefix": "demo_"
         }
     },
+    "router" : {
+        "cors": {
+            "origin": "localhost",
+            "methods": ["GET", "HEAD"],
+            "credentials": false,
+            "headers": ""
+        },
+        "routes": {
+            "/foo": "/demo/menu/items"
+        }
+    },
     "ssl": {
         "key": "./ssl.key",
         "cert": "./ss.crt"
@@ -70,6 +81,15 @@ layout: default
                 Where as <code>prefix</code> will give an extra layer of security.
             </dd>
 
+            <br/>
+            <dt>Router</dt>
+            <dd>
+                This setting can be an object or not defined. <br/>
+                Here we can add extra settings to the router. <br/>
+                We can controll how CORS (Cross Origin Resource Sharing) and the routes. <br/>
+                The routes are source -> target.
+            </dd>
+            
             <br/>
             <dt>ssl</dt>
             <dd>

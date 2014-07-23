@@ -1,0 +1,11 @@
+---
+layout: default
+---
+
+<div itemscope itemtype="http://schema.org/Article">
+    {% if page.name %}<meta itemprop="name" content="{{page.name}}">{% endif %}
+    {% if page.description %}<meta itemprop="description" content="{{page.description}}">{% endif %}
+    <meta itemprop="url" content="{{page.url}}">
+    
+    {{content}}
+</div>
